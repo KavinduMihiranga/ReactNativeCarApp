@@ -3,6 +3,11 @@ import React from 'react'
 import { NativeBaseProvider, TextArea, Box, Button } from 'native-base'
 
 export default function Vehicle({navigation}) {
+
+  const vehicleFlatListOnPress=()=>{
+    navigation.navigate("vehicleFlatList")
+  }
+
   return (
     <NativeBaseProvider>
       <Text>Vehicle</Text>
@@ -16,9 +21,13 @@ export default function Vehicle({navigation}) {
       <Box alignItems="center" w="100%">
       <TextArea h={20} placeholder="Text Area Placeholder" w="75%" maxW="300" />
     </Box>
-    <Box>
-        <Button>Save</Button>
-    </Box>
+    
+    <Button mt={'10%'} size="md" variant="outline" colorScheme="success" width={'80%'} 
+        onPress={vehicleFlatListOnPress}
+      >
+          Vehicles
+        </Button>   
+    
     </NativeBaseProvider>
   )
 }
