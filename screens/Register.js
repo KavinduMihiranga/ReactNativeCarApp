@@ -14,7 +14,7 @@ export default function Register({navigation}) {
   }
 
   useEffect(()=>{
-    fetch('http://localhost:7000/register')
+    fetch('http://localhost:8080/CarMobileAppSpring_war/api/v1/user')
     .then((res)=>res.json())
     .then((json)=>setUsername(json))
   })

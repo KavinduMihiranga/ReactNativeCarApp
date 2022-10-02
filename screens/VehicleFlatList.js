@@ -6,9 +6,10 @@ export default function VehicleFlatList() {
     const[vehicles,setVehicles]=useState([]);
 
     useEffect(()=>{
-        fetch("http://localhost:7000/vehicle")
+        fetch("http://localhost:8080/CarMobileAppSpring_war/api/v1/vehicle")
         .then((response)=>response.json)
         .then((json)=>setVehicles(json))
+        console.log("Helloo"+vehicles)
     })
     return (
     <View style={{padding:20}}>

@@ -9,7 +9,7 @@ export default function Login({navigation}) {
   const [password,setPassword]=useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:7000/login')
+    fetch("http://localhost:7000/login")
     .then((res)=>res.json())
     .then((json)=>setUsername(json))
   })
