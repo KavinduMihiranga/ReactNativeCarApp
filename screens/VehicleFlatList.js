@@ -1,18 +1,34 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Box } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { Button, NativeBaseProvider } from 'native-base';
 
 
-export default function VehicleFlatList() {
+export default function VehicleFlatList({navigation}) {
     const[vehicles,setVehicles]=useState([]);
 
     useEffect(()=>{
+
         fetch("http://localhost:8080/CarMobileAppSpring_war/api/v1/vehicle")
         .then((response)=>response.json)
         .then((json)=>setVehicles(json))
         console.log("Helloo"+vehicles)
     })
+
+    const addVehicle=()=>{
+      navigation.navigate('vehicle')
+      console.log(vehicles)
+    }
+
     return (
-    <View style={{padding:20}}>
+    <NativeBaseProvider style={{padding:20}}>
+
+     
+      <Button mt={'2%'} size="md" variant="outline" colorScheme="primary" width={'30%'} 
+        onPress={addVehicle }
+      >
+          Add Vehicle
+        </Button>  
+     
       <FlatList
       data={vehicles}
       renderItem={({ item }) =>
@@ -25,6 +41,6 @@ export default function VehicleFlatList() {
       </TouchableOpacity>
   }
       />
-    </View>
+    </NativeBaseProvider>
   )
 }
