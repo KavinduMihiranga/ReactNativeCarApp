@@ -53,14 +53,15 @@ export default function Vehicle({navigation}) {
   <View style={{flex:4, backgroundColor:"#130f40"}} >
     
       <Box style={{flex:5,width:"100%" ,flexDirection:"row", alignItems:"flex-start"}}>
-        <Box style={{height:"20%",width:"80%",flex:8}}>
-          <Text style={{fontSize:30, color:"#ffffff"}}> Vehicle </Text>
+        <Box style={{height:"30%",width:"80%",flex:8}}>
+          <Text style={{fontSize:30, color:"#ffffff",fontWeight:"bold"}}> Vehicle </Text>
+          <Button style={{width:"70%" , margin:5}}> Open Camera</Button>
         </Box>  
 
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
      
-      
       </ImageBackground>
+
      
       </Box>  
     

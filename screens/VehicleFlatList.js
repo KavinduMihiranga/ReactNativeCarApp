@@ -24,8 +24,11 @@ export default function VehicleFlatList({navigation}) {
     return (
     <NativeBaseProvider style={{padding:20}}>
       <View style={{backgroundColor:"#130f40"}}>
+      <View style={{alignItems:"flex-start"}}>
+          <Text style={{fontSize:30, color:"#ffffff",fontWeight:"bold",width:'50%',mt:"10%"}}> Vehicle List </Text>
+        </View>
         <View style={{alignItems:"flex-end"}}>
-        <Button mt={'2%'} mb={'5'} size="md" variant="solid" colorScheme="primary" width={'30%'}
+        <Button mt={'1%'} mb={'5'} size="md" variant="solid" colorScheme="primary" width={'30%'}
         onPress={addVehicle }
       >
           Add Vehicle

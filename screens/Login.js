@@ -49,7 +49,7 @@ export default function Login({navigation}) {
       <View style={{backgroundColor:"#130f40",height:"100%"}}>
       <VStack space={15} alignItems="center">
       <Box width={'32'} height={'12'}  alignItems={"center"} justifyContent="center" mt={"16"}>
-       <Text style={{color:"white" ,fontSize:34 , fontStyle:"italic", fontWeight:"600"}}>Login</Text>
+       <Text style={{color:"white" ,fontSize:34 , fontWeight:"bold"}}>Login</Text>
       </Box>
 
       <Box mt={"12"}>
