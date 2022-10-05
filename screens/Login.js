@@ -1,16 +1,17 @@
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import LoginBtn from '../components/LoginBtn'
 import { NativeBaseProvider, Button, VStack, Box, Input, Icon } from 'native-base'
 export default function Login({navigation}) {
 
-  const [username,setUsername]=useState([]);
-  const [password,setPassword]=useState([]);
+  const [id,setId]=useState('');
+  const [username,setUsername]=useState('');
+  const [password,setPassword]=useState('');
 
  
 
   useEffect(()=>{
-    fetch("http://localhost:8080/CarMobileAppSpring_war/api/v1/login")
+    fetch("http://localhost:7000/login")
     .then((res)=>res.json())
     .then((json)=>setUsername(json))
   })
@@ -21,14 +22,15 @@ export default function Login({navigation}) {
   }
 
   const  loginBtnOnPress=()=>{
-    navigation.navigate('vehicleFlatList')
+    
+
     console.log("login Button press")
-    fetch('http://localhost:8080/CarMobileAppSpring_war/api/v1/login', {
-      method: 'post',
+    fetch('http://localhost:7000/login', {
+      method: 'POST',
       body: JSON.stringify({
-        lid:1,
-        loginUserName: username,
-        loginPassword: password
+        id:id,
+        name:username,
+        password:password
         
        
       }),
@@ -40,13 +42,17 @@ export default function Login({navigation}) {
    
       .then(response => response.json())
       .then(json => console.log(json));
+
+      console.log(id,username,password)
+      navigation.navigate('vehicleFlatList')
   }
 
   return (
-    <NativeBaseProvider>
-      <VStack space={4} alignItems="center">
+    <NativeBaseProvider style={styles.context}>
+      <View style={{backgroundColor:"#130f40",height:"100%"}}>
+      <VStack space={15} alignItems="center">
       <Box width={'32'} height={'12'}  alignItems={"center"} justifyContent="center" mt={"16"}>
-       <Text style={{color:"#192a56" ,fontSize:34 , fontStyle:"italic", fontWeight:"600"}}>Login</Text>
+       <Text style={{color:"white" ,fontSize:34 , fontStyle:"italic", fontWeight:"600"}}>Login</Text>
       </Box>
 
       <Box mt={"12"}>
@@ -54,17 +60,18 @@ export default function Login({navigation}) {
      
      
 
-    <Input  variant="rounded" placeholder="Username" width={'80%'} value={username} onChangeText={e=>{setUsername(e)}}/>
-      <Input mt={"1"} variant="rounded" placeholder="Password" width={'80%'} value={password} onChangeText={e=>{setPassword(e)}} />
+    <Input  variant="rounded" placeholder="Id" width={'80%'} value={id} color={"#ffffff"} onChangeText={e=>{setId(e)}}/>
+    <Input mt={"1"} variant="rounded" placeholder="Username" width={'80%'} color={"#ffffff"} value={username} onChangeText={e=>{setUsername(e)}}/>
+    <Input mt={"1"} variant="rounded" placeholder="Password" width={'80%'} color={"#ffffff"} value={password} onChangeText={e=>{setPassword(e)}} />
      
       </Box>
     
-      <Button mt={'10%'} size="md" variant="outline" colorScheme="success" width={'30%'} 
+      <Button mt={'1%'} size="md" variant="solid" colorScheme="success" width={'30%'} 
         onPress={loginBtnOnPress }
       >
           Login
         </Button> 
-      <Button mt={'2%'} size="md" variant="outline" colorScheme="primary" width={'30%'} 
+      <Button mt={'1%'} mb={'16'} size="md" variant="solid" colorScheme="primary" width={'30%'} 
         onPress={registerButonOnPress }
       >
           Register
@@ -72,6 +79,14 @@ export default function Login({navigation}) {
 
          
       </VStack>
+      </View>
+      
     </NativeBaseProvider>
   )
 }
+
+const styles=StyleSheet.create({
+  context:{
+    backgroundColor:"white"
+  }
+})

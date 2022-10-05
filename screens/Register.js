@@ -21,21 +21,24 @@ export default function Register({navigation}) {
 
   return (
     <NativeBaseProvider >
+      <View style={{backgroundColor:"#130f40" , height:"100%"}}>
       <VStack space={4} alignItems={"center"} >
       <Box width={'32'} height={'12'} alignItems={"center"} justifyItems={"center"} mt={16}>
-        <Text style={{color:"#192a56", fontSize:30, fontWeight:"bold"}}> Register</Text>
+        <Text style={{color:"#ffffff", fontSize:30, fontWeight:"bold"}}> Register</Text>
       </Box>
-      <Input variant="rounded" placeholder="Name" width={'80%'} value={name} onChangeText={e=>{setName(e)}}/>
-      <Input variant="rounded" placeholder="Email" width={'80%'} value={email} onChangeText={e=>{setEmail(e)}}/>
-      <Input variant="rounded" placeholder="PhoneNo" width={'80%'} value={phoneNo} onChangeText={e=>{setPhoneNo(e)}}/>
-      <Input variant="rounded" placeholder="Password" width={'80%'} value={password} onChangeText={e=>{setPassword(e)}} />
+      <Input variant="rounded" placeholder="Name" width={'80%'} color={"#ffffff"} value={name} onChangeText={e=>{setName(e)}}/>
+      <Input variant="rounded" placeholder="Email" width={'80%'}color={"#ffffff"} value={email} onChangeText={e=>{setEmail(e)}}/>
+      <Input variant="rounded" placeholder="PhoneNo" width={'80%'}color={"#ffffff"} value={phoneNo} onChangeText={e=>{setPhoneNo(e)}}/>
+      <Input variant="rounded" placeholder="Password" width={'80%'} color={"#ffffff"} value={password} onChangeText={e=>{setPassword(e)}} />
      
-      <Button mt={'10%'} size="md" variant="outline" colorScheme="success" width={'30%'} 
+      <Button mt={'10%'} size="md" variant="solid" colorScheme="success" width={'30%'} 
         onPress={registerBtnOnPress }
       >
           Register
         </Button>  
       </VStack>
+      </View>
+      
     </NativeBaseProvider>
   )
 }

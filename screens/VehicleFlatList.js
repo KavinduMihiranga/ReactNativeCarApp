@@ -7,30 +7,45 @@ export default function VehicleFlatList({navigation}) {
     const[vehicles,setVehicles]=useState([]);
 
     useEffect(()=>{
-
-        fetch("http://localhost:8080/CarMobileAppSpring_war/api/v1/vehicle")
-        .then((response)=>response.json)
-        .then((json)=>setVehicles(json))
-        console.log("Helloo"+vehicles)
-    })
+        getVehicles();
+    },[])
 
     const addVehicle=()=>{
       navigation.navigate('vehicle')
       console.log(vehicles)
     }
 
+    const getVehicles=async()=>{
+      try {
+        const response=await
+        fetch('http://localhost:7000/vehicle');
+        const json=await response.json();
+        setVehicles(json.vehicles)
+      } catch (error) {
+        console.error(error)
+      }finally{
+        setLoading(false)
+      }
+    }
+
     return (
     <NativeBaseProvider style={{padding:20}}>
-
-     
-      <Button mt={'2%'} size="md" variant="outline" colorScheme="primary" width={'30%'} 
+      <View style={{backgroundColor:"#130f40"}}>
+        <View style={{alignItems:"flex-end"}}>
+        <Button mt={'2%'} size="md" variant="solid" colorScheme="primary" width={'30%'}
         onPress={addVehicle }
       >
           Add Vehicle
         </Button>  
+        </View>
+      
+      </View>
+       
      
       <FlatList
+      style={{backgroundColor:"#130f40"}}
       data={vehicles}
+      keyExtractor={({ id }, index) => id}
       renderItem={({ item }) =>
       <TouchableOpacity style={{borderWidth:1, marginBottom:'5%', padding:5}} onPress={()=>navigation.navigate('UpdateDelete',{obj:item})}>
           <Text style={{marginBottom:10,fontWeight:'bold',color:"black"}} >{item.brand}</Text>
@@ -41,6 +56,9 @@ export default function VehicleFlatList({navigation}) {
       </TouchableOpacity>
   }
       />
+        
+     
+     
     </NativeBaseProvider>
   )
 }
