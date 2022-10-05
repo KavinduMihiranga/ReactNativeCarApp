@@ -44,7 +44,6 @@ export default function VehicleFlatList({navigation}) {
 
       <TouchableOpacity style={{borderWidth:1, marginBottom:'5%', padding:5,backgroundColor:"white", borderColor:"green"}} onPress={()=>navigation.navigate('updateDeleteVehicle',{obj:item})}>
         
-      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.__id}</Text>
       <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.id_}</Text>
       <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.manufacturer}</Text>
       <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.model}</Text>

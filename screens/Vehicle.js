@@ -6,22 +6,42 @@ import { border } from 'native-base/lib/typescript/theme/styled-system';
 export default function Vehicle({navigation}) {
   const image = { uri: "https://reactjs.org/logo-og.png" };
 
-  const [vehicleId,setId]=useState([]);
-  const [vehicleBrand,setBrand]=useState([]);
-  const [vehicleModel,setModel]=useState([]);
-  const [vehicleColor,setColor]=useState([]);
-  const [vehiclePrice,setPrice]=useState([]);
+  const [id,setId]=useState([]);
+  const [brand,setBrand]=useState([]);
+  const [model,setModel]=useState([]);
+  const [color,setColor]=useState([]);
+  const [price,setPrice]=useState([]);
 
 
   const vehicleFlatListOnPress=()=>{
+
+
+    fetch('http://localhost:7000/vehicle', {
+      method: 'POST',
+      body: JSON.stringify({
+        id: id,
+        brand:brand,
+        model: model,
+        color: color,
+        price: price,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+
+
+
     navigation.navigate("vehicleFlatList")
-    console.log(vehicleId,vehicleBrand,vehicleModel,vehicleColor,vehiclePrice)
+    console.log(id,brand,model,color,price)
   }
 
   useEffect(()=>{
-    fetch('http://localhost:8080/CarMobileAppSpring_war/api/v1/vehicle')
-    .then((res)=>res.json())
-    .then((json)=>setUsername(json))
+    // fetch('http://localhost:8080/CarMobileAppSpring_war/api/v1/vehicle')
+    // .then((res)=>res.json())
+    // .then((json)=>setUsername(json))
   })
 
   return (
@@ -48,11 +68,11 @@ export default function Vehicle({navigation}) {
       
       <View style={{flex:10 , backgroundColor:"#130f40"}}>
       <Box alignItems="center" w="100%">
-      <Input variant="rounded" placeholder="vid" width={'80%'}color={"#ffffff"} value={vehicleId} onChangeText={e=>{setId(e)}}/>
-      <Input mt={1} variant="rounded" placeholder="vehicleBrand" color={"#ffffff"}  width={'80%'} value={vehicleBrand} onChangeText={e=>{setBrand(e)}} />
-      <Input mt={1} variant="rounded" placeholder="vehicleModel" color={"#ffffff"} width={'80%'} value={vehicleModel} onChangeText={e=>{setModel(e)}} />
-      <Input mt={1} variant="rounded" placeholder="vehicleColor" color={"#ffffff"} width={'80%'} value={vehicleColor} onChangeText={e=>{setColor(e)}} />
-      <Input mt={1} variant="rounded" placeholder="vehiclePrice" color={"#ffffff"} width={'80%'} value={vehiclePrice} onChangeText={e=>{setPrice(e)}} />
+      <Input variant="rounded" placeholder="vid" width={'80%'}color={"#ffffff"} value={id} onChangeText={e=>{setId(e)}}/>
+      <Input mt={1} variant="rounded" placeholder="vehicleBrand" color={"#ffffff"}  width={'80%'} value={brand} onChangeText={e=>{setBrand(e)}} />
+      <Input mt={1} variant="rounded" placeholder="vehicleModel" color={"#ffffff"} width={'80%'} value={model} onChangeText={e=>{setModel(e)}} />
+      <Input mt={1} variant="rounded" placeholder="vehicleColor" color={"#ffffff"} width={'80%'} value={color} onChangeText={e=>{setColor(e)}} />
+      <Input mt={1} variant="rounded" placeholder="vehiclePrice" color={"#ffffff"} width={'80%'} value={price} onChangeText={e=>{setPrice(e)}} />
          </Box>
     
     <Box alignItems={"center"}>

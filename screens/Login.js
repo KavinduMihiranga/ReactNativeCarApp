@@ -4,46 +4,43 @@ import LoginBtn from '../components/LoginBtn'
 import { NativeBaseProvider, Button, VStack, Box, Input, Icon } from 'native-base'
 export default function Login({navigation}) {
 
-  const [id,setId]=useState('');
-  const [username,setUsername]=useState('');
-  const [password,setPassword]=useState('');
+  const [id,setId]=useState([]);
+  const [name,setname]=useState([]);
+  const [password,setPassword]=useState([]);
 
  
 
   useEffect(()=>{
-    fetch("http://localhost:7000/login")
-    .then((res)=>res.json())
-    .then((json)=>setUsername(json))
+    // fetch("http://localhost:7000/login/")
+    // .then((res)=>res.json())
+    // .then((json)=>console.log("Hello"+json))
   })
 
   const  registerButonOnPress=()=>{
     navigation.navigate('Register')
-    console.log(username,password)
+    console.log(name,password)
   }
 
   const  loginBtnOnPress=()=>{
-    
 
     console.log("login Button press")
+
     fetch('http://localhost:7000/login', {
       method: 'POST',
       body: JSON.stringify({
-        id:id,
-        name:username,
-        password:password
-        
-       
+        id: id,
+        name: name,
+        password: password,
       }),
-      
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-   
-      .then(response => response.json())
-      .then(json => console.log(json));
+      .then((response) => response.json())
+      .then((json) => console.log(json));
 
-      console.log(id,username,password)
+
+      console.log(id,name,password)
       navigation.navigate('vehicleFlatList')
   }
 
@@ -61,7 +58,7 @@ export default function Login({navigation}) {
      
 
     <Input  variant="rounded" placeholder="Id" width={'80%'} value={id} color={"#ffffff"} onChangeText={e=>{setId(e)}}/>
-    <Input mt={"1"} variant="rounded" placeholder="Username" width={'80%'} color={"#ffffff"} value={username} onChangeText={e=>{setUsername(e)}}/>
+    <Input mt={"1"} variant="rounded" placeholder="Username" width={'80%'} color={"#ffffff"} value={name} onChangeText={e=>{setname(e)}}/>
     <Input mt={"1"} variant="rounded" placeholder="Password" width={'80%'} color={"#ffffff"} value={password} onChangeText={e=>{setPassword(e)}} />
      
       </Box>

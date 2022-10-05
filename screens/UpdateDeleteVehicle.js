@@ -3,25 +3,35 @@ import React, { useEffect, useState } from 'react'
 import { Input, NativeBaseProvider, VStack,Button } from 'native-base'
 
 export default function UpdateDeleteVehicle({navigation,route}) {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [uId, setuId] = useState('');
+  const [id, setId] = useState('');
+  const [manufacturer, setManufacturer] = useState('');
+  const [model, setModel] = useState('');
+  const [year, setYear] = useState('');
 
   useEffect(() => {
     console.log(route.params.obj);
-    setTitle(route.params.obj.title);
-    setBody(route.params.obj.body);
-    setuId(route.params.obj.userId + '');
+    setId(route.params.obj.id_);
+    setManufacturer(route.params.obj.manufacturer);
+    setModel(route.params.obj.model);
+    setYear(route.params.obj.year);
   });
 
+  const deleteVehicle=()=>{
+    fetch("http://localhost:7000/vehicle/63381ca3964c1034dd081bce", {
+  method: 'DELETE',
+  
+});
+console.log("Delete Function")
+  }
+
   const updatePost = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts/1', {
+    fetch('https://fake-vehicles-api.herokuapp.com/api/101', {
       method: 'PUT',
       body: JSON.stringify({
         id: 1,
-        title: title,
-        body: body,
-        userId: uId,
+        manufacturer: manufacturer,
+        model: model,
+        year: year,
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -32,44 +42,71 @@ export default function UpdateDeleteVehicle({navigation,route}) {
   };
   return (
     <NativeBaseProvider>
-     <VStack space={4} alignItems="center" mt={'15%'}>
+
+      <View style={{backgroundColor:"#130f40",height:"100%"}}>
+      <VStack space={4} alignItems="center" mt={'15%'}>
         <Input
           mx={'3'}
-          value={title}
+          value={id}
+          color={"#ffff"}
           onChangeText={(e) => {
-            setTitle(e);
+            setId(e);
           }}
-          placeholder="Title"
+          placeholder="Id"
           width="80%"
         />
         <Input
           mx={'3'}
-          value={body}
+          value={manufacturer}
+          color={"#ffff"}
           onChangeText={(e) => {
-            setBody(e);
+            setManufacturer(e);
           }}
-          placeholder="Body"
+          placeholder="Manufacturer"
           width="80%"
         />
         <Input
           mx={'3'}
-          value={uId}
+          value={model}
+          color={"#ffff"}
           onChangeText={(e) => {
-            setuId(e);
+            setModel(e);
           }}
-          placeholder="Uid"
+          placeholder="Model"
           width="80%"
         />
+        <Input
+          mx={'3'}
+          value={year}
+          color={"#ffff"}
+          onChangeText={(e) => {
+            setYear(e);
+          }}
+          placeholder="Year"
+          width="80%"
+        />
+       
         <Button
           mt={'20%'}
           size="md"
           variant="outline"
-          colorScheme="warning"
-          width={'80%'}
+          colorScheme="primary"
+          width={'30%'}
           onPress={updatePost}>
-          Update Post
+          Update 
+        </Button>
+        <Button
+          mt={'2%'}
+          size="md"
+          variant="outline"
+          colorScheme="warning"
+          width={'30%'}
+          onPress={deleteVehicle}>
+          Delete
         </Button>
       </VStack>
+      </View>
+    
     </NativeBaseProvider>
   )
 }
