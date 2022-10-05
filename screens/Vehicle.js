@@ -2,9 +2,9 @@ import { View, Text,StyleSheet,ImageBackground,FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeBaseProvider, TextArea, Box, Button, Input } from 'native-base'
 import { border } from 'native-base/lib/typescript/theme/styled-system';
-
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 export default function Vehicle({navigation}) {
-  const image = { uri: "https://reactjs.org/logo-og.png" };
+  const [imageUri,setimageuri]=useState('');
 
   const [id,setId]=useState([]);
   const [brand,setBrand]=useState([]);
@@ -44,6 +44,56 @@ export default function Vehicle({navigation}) {
     // .then((json)=>setUsername(json))
   })
 
+  const openCamera=()=>{
+    const options={
+        storageOption:{
+          path:"images",
+          mediaType:"photo"
+
+        },
+        includeBase64:true,
+    };
+    launchCamera(options,response=>{
+      console.log('Response =',response);
+      if(response.didCancel){
+          console.log('user canceled Image picker')
+      }else if(response.error){
+        console.log('Image picker errror: ',response.error);
+      }else if(response.customButton){
+        console.log('user image custom button: ',response.customButton);
+      }else{
+        //you can also display using data;
+        const source={uri:'data:image/jpg;base64,' + response.base64};
+        setimageuri(source)
+      }
+    });
+  }
+
+  const openGallery=()=>{
+
+    const options={
+      storageOption:{
+        path:'images',
+        mediaType:'photo',
+      },
+      includeBase64:true,
+    };
+    launchImageLibrary(options,response=>{
+      console.log('Response =',response);
+      if(response.didCancel){
+          console.log('user canceled Image picker')
+      }else if(response.error){
+        console.log('Image picker errror: ',response.error);
+      }else if(response.customButton){
+        console.log('user image custom button: ',response.customButton);
+      }else{
+        //you can also display using data;
+        const source ={uri:'data:image/jpg:base64,' + response.base64};
+        setimageuri(source)
+      }
+    });
+  }
+
   return (
     <NativeBaseProvider  style={styles.container}>
 
@@ -55,10 +105,16 @@ export default function Vehicle({navigation}) {
       <Box style={{flex:5,width:"100%" ,flexDirection:"row", alignItems:"flex-start"}}>
         <Box style={{height:"30%",width:"80%",flex:8}}>
           <Text style={{fontSize:30, color:"#ffffff",fontWeight:"bold"}}> Vehicle </Text>
-          <Button style={{width:"70%" , margin:5}}> Open Camera</Button>
+          <Button style={{width:"70%" , margin:5}} onPress={()=>{
+            openCamera();
+          }} > Open Camera</Button>
+
+          <Button style={{width:"70%" , margin:5}} onPress={()=>{
+            openGallery();
+          }} > Open Gallery</Button>
         </Box>  
 
-        <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={imageUri} resizeMode="cover" style={styles.image}>
      
       </ImageBackground>
 
