@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Register from './screens/Register';
 import { createStackNavigator } from '@react-navigation/stack';
 import VehicleFlatList from './screens/VehicleFlatList';
-
+import UpdateDeleteVehicle from './screens/UpdateDeleteVehicle';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +18,7 @@ export default function App() {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="vehicle" component={Vehicle} />
       <Stack.Screen name="vehicleFlatList" component={VehicleFlatList} />
+      <Stack.Screen name="updateDeleteVehicle" component={UpdateDeleteVehicle} />
      
     </Stack.Navigator>
     </NavigationContainer>

@@ -1,38 +1,31 @@
-import { View, Text, FlatList, Box } from 'react-native'
+import { View, Text, FlatList, Box ,TouchableOpacity} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Button, NativeBaseProvider } from 'native-base';
 
 
 export default function VehicleFlatList({navigation}) {
-    const[vehicles,setVehicles]=useState([]);
-
+  const [posts, setPosts] = useState([]);
     useEffect(()=>{
         getVehicles();
     },[])
 
     const addVehicle=()=>{
       navigation.navigate('vehicle')
-      console.log(vehicles)
+      console.log(vehicle)
     }
 
     const getVehicles=async()=>{
-      try {
-        const response=await
-        fetch('http://localhost:7000/vehicle');
-        const json=await response.json();
-        setVehicles(json.vehicles)
-      } catch (error) {
-        console.error(error)
-      }finally{
-        setLoading(false)
-      }
+      fetch('https://fake-vehicles-api.herokuapp.com/api')
+      .then((response) => response.json())
+      .then((json) => setPosts(json));
+
     }
 
     return (
     <NativeBaseProvider style={{padding:20}}>
       <View style={{backgroundColor:"#130f40"}}>
         <View style={{alignItems:"flex-end"}}>
-        <Button mt={'2%'} size="md" variant="solid" colorScheme="primary" width={'30%'}
+        <Button mt={'2%'} mb={'5'} size="md" variant="solid" colorScheme="primary" width={'30%'}
         onPress={addVehicle }
       >
           Add Vehicle
@@ -43,20 +36,26 @@ export default function VehicleFlatList({navigation}) {
        
      
       <FlatList
+    
       style={{backgroundColor:"#130f40"}}
-      data={vehicles}
+      data={posts}
       keyExtractor={({ id }, index) => id}
       renderItem={({ item }) =>
-      <TouchableOpacity style={{borderWidth:1, marginBottom:'5%', padding:5}} onPress={()=>navigation.navigate('UpdateDelete',{obj:item})}>
-          <Text style={{marginBottom:10,fontWeight:'bold',color:"black"}} >{item.brand}</Text>
-          <Text style={{marginBottom:10,fontWeight:'bold',color:"black"}} >{item.model}</Text>
-          <Text style={{marginBottom:10,fontWeight:'bold',color:"black"}} >{item.color}</Text>
-          <Text style={{marginBottom:10,fontWeight:'bold',color:"black"}} >{item.price}</Text>
-          <Text style={{marginBottom:10,color:'black'}} >{item.body}</Text>
-      </TouchableOpacity>
+
+      <TouchableOpacity style={{borderWidth:1, marginBottom:'5%', padding:5,backgroundColor:"white", borderColor:"green"}} onPress={()=>navigation.navigate('updateDeleteVehicle',{obj:item})}>
+        
+      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.__id}</Text>
+      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.id_}</Text>
+      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.manufacturer}</Text>
+      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.model}</Text>
+      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.year}</Text>
+      <Text style={{marginBottom:10,fontWeight:'bold',color:"#2f3640",backgroundColor:"#ffff"}} >{item.vin}</Text>
+    
+    
+ 
+  </TouchableOpacity>
   }
       />
-        
      
      
     </NativeBaseProvider>
