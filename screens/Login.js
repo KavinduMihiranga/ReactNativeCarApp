@@ -2,6 +2,10 @@ import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import LoginBtn from '../components/LoginBtn'
 import { NativeBaseProvider, Button, VStack, Box, Input, Icon } from 'native-base'
+import axios from 'axios';
+import loginService from '../services/loginService';
+const baseUrl='http://localhost:7000/login';
+
 export default function Login({navigation}) {
 
   const [id,setId]=useState([]);
@@ -11,9 +15,11 @@ export default function Login({navigation}) {
  
 
   useEffect(()=>{
-    // fetch("http://localhost:7000/login/")
-    // .then((res)=>res.json())
-    // .then((json)=>console.log("Hello"+json))
+    fetch("http://localhost:7000/login")
+    .then((res)=>res.json())
+    .then((json)=>setId(json))
+    .then((json)=>setname(json))
+    .then((json)=>setPassword(json))
   })
 
   const  registerButonOnPress=()=>{
@@ -21,27 +27,57 @@ export default function Login({navigation}) {
     console.log(name,password)
   }
 
-  const  loginBtnOnPress=()=>{
+  const  loginBtnOnPress=async(event)=>{
+    event.preventDefault();
 
     console.log("login Button press")
 
-    fetch('http://localhost:7000/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        id: id,
-        name: name,
-        password: password,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    // fetch('http://localhost:7000/login', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     id: id,
+    //     name: name,
+    //     password: password,
+    //   }),
+    //   headers: {
+    //     'Content-type': 'application/json; charset=UTF-8',
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((json) => console.log(json));
 
-
+   
+    try {
+      const resp=await axios.post(baseUrl, {id:id,name:name,password:password});
+      console.log(resp.data)
+    } catch (error) {
+      console.log(error.response.message)
+    }
       console.log(id,name,password)
       navigation.navigate('vehicleFlatList')
+
+  
+  // if (this.state.btnLabel === "Save") {
+      // const data=[id,name,password]
+      // let res = await loginService.postLogin(data);
+      // console.log(res);
+
+      // if (res.status === 200) {
+      //     this.setState({
+      //         alert: true,
+      //         message: res.data.message,
+      //         severity: "success"
+      //     });
+      //     // this.clearFields();
+      //     // this.loadData();
+      // } else {
+      //     this.setState({
+      //         alert: true,
+      //         message: res.response.data.message,
+      //         severity: "error"
+      //     });
+      // }
+
   }
 
   return (

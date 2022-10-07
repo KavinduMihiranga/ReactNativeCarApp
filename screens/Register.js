@@ -17,6 +17,9 @@ export default function Register({navigation}) {
     fetch('http://localhost:8080/CarMobileAppSpring_war/api/v1/user')
     .then((res)=>res.json())
     .then((json)=>setUsername(json))
+    .then((json)=>setEmail(json))
+    .then((json)=>setPhoneNo(json))
+    .then((json)=>setPassword(json))
   })
 
   return (
