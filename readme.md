@@ -6,8 +6,7 @@
 
 &copy;Kavindu Mihiranga
 
-<p float="left>
-
+<p float="left">
 <img src= "assets/login.jpg" width=100>
 <img src= "assets/register.jpg" width=100>
 <img src= "assets/vehicle.jpg" width=100>
