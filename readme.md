@@ -6,8 +6,9 @@
 
 &copy;Kavindu Mihiranga
 
-![Image](assets/login.jpg)
-![Image](assets/register.jpg)
-![Image](assets/vehicle.jpg)
-![Image](assets/vehicleList.jpg)
-![Image](assets/updateDeleteVehicle.jpg)
+<img src= "assets/login.jpg" width=100>
+<img src= "assets/register.jpg" width=100>
+<img src= "assets/vehicle.jpg" width=100>
+<img src= "assets/vehicleList.jpg" width=100>
+<img src= "assets/updateDeleteVehicle.jpg" width=100>
+
