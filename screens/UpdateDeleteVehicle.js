@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native'
+import { View, Text ,Image,StyleSheet} from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Input, NativeBaseProvider, VStack,Button } from 'native-base'
+import { Input, NativeBaseProvider, VStack,Button, ScrollView,Box} from 'native-base'
 
 export default function UpdateDeleteVehicle({navigation,route}) {
   const [id, setId] = useState('');
@@ -41,9 +41,20 @@ console.log("Delete Function")
       .then(json => console.log(json));
   };
   return (
-    <NativeBaseProvider>
-
+    <NativeBaseProvider style={styles.context}>
+ 
       <View style={{backgroundColor:"#130f40",height:"100%"}}>
+      <Box style={styles.container}>
+      <Image
+        style={styles.image}
+        source={{
+          uri: 'https://i.imgflip.com/6e6bpc.gif',
+        }}
+      />
+  </Box>
+        <ScrollView>
+
+     
       <VStack space={4} alignItems="center" mt={'15%'}>
         <Input
           mx={'3'}
@@ -86,27 +97,40 @@ console.log("Delete Function")
           width="80%"
         />
        
-        <Button
-          mt={'20%'}
-          size="md"
-          variant="outline"
-          colorScheme="primary"
-          width={'30%'}
-          onPress={updatePost}>
-          Update 
-        </Button>
-        <Button
-          mt={'2%'}
-          size="md"
-          variant="outline"
-          colorScheme="warning"
-          width={'30%'}
-          onPress={deleteVehicle}>
-          Delete
-        </Button>
+       <Button.Group isAttached mx={{
+        base:"auto",
+        md:0
+      }}size='md' borderRadius={100}>
+        <Button colorScheme={"blue"} width={'32'}  onPress={updatePost }>Update</Button>
+        <Button width={'32'} onPress={deleteVehicle }>  Delete</Button>
+
+      </Button.Group>
+  
       </VStack>
+      </ScrollView>
       </View>
     
     </NativeBaseProvider>
   )
 }
+
+const styles=StyleSheet.create({
+  context:{
+    backgroundColor:"white"
+  },
+  container: {
+    flex: 5,
+  },
+  image: {
+    flex: 12,
+    justifyContent: "center"
+  },
+  text: {
+    color: "white",
+    fontSize: 42,
+    lineHeight: 84,
+    fontWeight: "bold",
+    textAlign: "center",
+    // backgroundColor: "#000000c0"
+  }
+})

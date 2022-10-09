@@ -20,6 +20,7 @@ export default function App() {
       <Stack.Screen name="vehicleFlatList" component={VehicleFlatList} />
       <Stack.Screen name="updateDeleteVehicle" component={UpdateDeleteVehicle} />
      
+     
     </Stack.Navigator>
     </NavigationContainer>
   )

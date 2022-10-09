@@ -11,7 +11,7 @@ export default function VehicleFlatList({navigation}) {
 
     const addVehicle=()=>{
       navigation.navigate('vehicle')
-      console.log(vehicle)
+      // console.log(vehicle)
     }
 
     const getVehicles=async()=>{
@@ -28,7 +28,7 @@ export default function VehicleFlatList({navigation}) {
           <Text style={{fontSize:30, color:"#ffffff",fontWeight:"bold",width:'50%',mt:"10%"}}> Vehicle List </Text>
         </View>
         <View style={{alignItems:"flex-end"}}>
-        <Button mt={'1%'} mb={'5'} size="md" variant="solid" colorScheme="primary" width={'30%'}
+        <Button mt={'1%'} mb={'5'} size="md" variant="solid" colorScheme="primary" width={'60%'}
         onPress={addVehicle }
       >
           Add Vehicle

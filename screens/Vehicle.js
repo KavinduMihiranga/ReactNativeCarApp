@@ -1,10 +1,10 @@
-import { View, Text,StyleSheet,ImageBackground,FlatList } from 'react-native'
+import { View, Text,StyleSheet,ImageBackground,FlatList,Image ,ScrollView} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeBaseProvider, TextArea, Box, Button, Input } from 'native-base'
 import { border } from 'native-base/lib/typescript/theme/styled-system';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 export default function Vehicle({navigation}) {
-  const [imageUri,setimageuri]=useState('');
+  const [imageUri,setImageuri]=useState('');
 
   const [id,setId]=useState([]);
   const [brand,setBrand]=useState([]);
@@ -39,9 +39,9 @@ export default function Vehicle({navigation}) {
   }
 
   useEffect(()=>{
-    // fetch('http://localhost:8080/CarMobileAppSpring_war/api/v1/vehicle')
-    // .then((res)=>res.json())
-    // .then((json)=>setUsername(json))
+    fetch('http://localhost:7000/vehicle')
+    .then((res)=>res.json())
+    .then((json)=>setUsername(json))
   })
 
   const openCamera=()=>{
@@ -64,7 +64,7 @@ export default function Vehicle({navigation}) {
       }else{
         //you can also display using data;
         const source={uri:'data:image/jpg;base64,' + response.base64};
-        setimageuri(source)
+        setImageuri(source)
       }
     });
   }
@@ -89,7 +89,7 @@ export default function Vehicle({navigation}) {
       }else{
         //you can also display using data;
         const source ={uri:'data:image/jpg:base64,' + response.base64};
-        setimageuri(source)
+        setImageuri(source)
       }
     });
   }
@@ -97,34 +97,25 @@ export default function Vehicle({navigation}) {
   return (
     <NativeBaseProvider  style={styles.container}>
 
-      <View>
-        
-      </View>
   <View style={{flex:4, backgroundColor:"#130f40"}} >
-    
+  
       <Box style={{flex:5,width:"100%" ,flexDirection:"row", alignItems:"flex-start"}}>
         <Box style={{height:"30%",width:"80%",flex:8}}>
-          <Text style={{fontSize:30, color:"#ffffff",fontWeight:"bold"}}> Vehicle </Text>
-          <Button style={{width:"70%" , margin:5}} onPress={()=>{
-            openCamera();
-          }} > Open Camera</Button>
-
-          <Button style={{width:"70%" , margin:5}} onPress={()=>{
-            openGallery();
-          }} > Open Gallery</Button>
+          <Text style={{fontSize:30, color:"#ffffff",fontWeight:"bold",mt:"12"}}> Vehicle </Text>
+         
         </Box>  
 
-        <ImageBackground source={imageUri} resizeMode="cover" style={styles.image}>
+        <Image source={{ uri: 'https://i.imgflip.com/6e6bpc.gif'}} resizeMode="cover" style={styles.image}>
      
-      </ImageBackground>
-
+      </Image>
      
       </Box>  
-    
+     
       </View>
       
       <View style={{flex:10 , backgroundColor:"#130f40"}}>
-      <Box alignItems="center" w="100%">
+        <ScrollView  h="180">
+      <Box alignItems="center" w="100%" mb={5}>
       <Input variant="rounded" placeholder="vid" width={'80%'}color={"#ffffff"} value={id} onChangeText={e=>{setId(e)}}/>
       <Input mt={1} variant="rounded" placeholder="vehicleBrand" color={"#ffffff"}  width={'80%'} value={brand} onChangeText={e=>{setBrand(e)}} />
       <Input mt={1} variant="rounded" placeholder="vehicleModel" color={"#ffffff"} width={'80%'} value={model} onChangeText={e=>{setModel(e)}} />
@@ -133,15 +124,31 @@ export default function Vehicle({navigation}) {
          </Box>
     
     <Box alignItems={"center"}>
-    <Button mt={10} size="md" variant="solid" colorScheme="success" width={'30%'} 
+
+      
+
+    <Button.Group isAttached mx={{
+        base:"auto",
+        md:0
+      }}size='md' borderRadius={100}>
+        <Button colorScheme={"blue"} width={'20'}  onPress={openCamera}>Camera</Button>
+        <Button width={'20'} onPress={openGallery }>Gallery</Button>
+
+      </Button.Group>
+  
+
+    <Button mt={5} size="md" variant="solid" colorScheme="success" width={'60%'} borderRadius="3xl"
         onPress={vehicleFlatListOnPress}
       >
           Add Vehicle
         </Button>  
+
+
     </Box>
-     
+    </ScrollView>
 
         </View>
+       
     </NativeBaseProvider>
   )
 }
