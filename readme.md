@@ -6,9 +6,11 @@
 
 &copy;Kavindu Mihiranga
 
+<p float="left>
+
 <img src= "assets/login.jpg" width=100>
 <img src= "assets/register.jpg" width=100>
 <img src= "assets/vehicle.jpg" width=100>
 <img src= "assets/vehicleList.jpg" width=100>
 <img src= "assets/updateDeleteVehicle.jpg" width=100>
-
+</p>
