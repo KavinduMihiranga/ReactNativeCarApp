@@ -137,7 +137,7 @@ const styles=StyleSheet.create({
     backgroundColor:"white"
   },
   container: {
-    flex: 1,
+    flex: 5,
   },
   image: {
     flex: 12,
